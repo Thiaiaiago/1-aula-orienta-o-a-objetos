@@ -1,1 +1,173 @@
+#include <iostream>
+#include "fmtTensaoR.h"
+#include "fonteTensao.h"
+
+using namespace std;
+
+class resistor  {
+                private:
+                    double resistencia;
+                    double potencia;
+                    double tolerancia;
+
+                public:
+                    resistor(void);
+                    resistor(double r);
+                    double getr(void);
+                    bool setr(double r);
+                    double v(double i);
+                    double i(double v);
+                };
+
+resistor::resistor(void)
+{
+    resistencia=0;
+    potencia=1;
+    tolerancia=0.1;
+}
+
+resistor::resistor(double r)
+{
+    resistencia=r;
+    potencia=1;
+    tolerancia=0.1;
+}
+
+double resistor::getr(void)
+{
+    return resistencia;
+}
+
+bool resistor::setr(double r)
+{
+    if (r<0||r>10000000)
+        return false;
+    resistencia=r;
+    return true;
+}
+
+double resistor::v(double i)
+{
+    if (resistencia==0)
+        return 0;
+    return resistencia*i;
+}
+
+double resistor::i(double v)
+{
+    if (resistencia==0)
+        return 0;
+    return v/resistencia;
+}
+
+
+class ivet {
+            private:
+                int *dados;
+                int tam;
+
+            public:
+                ivet(int tamanho);
+                ~ivet(void);
+                void seti(int pos, int valor);
+                int geti(int pos);
+            };
+
+//exemplo de uso de destrutor e construtor
+//construtor de vetor de dados
+ivet::ivet(int tamanho)
+{
+    dados=new int[tamanho];
+    if(dados==nullptr)
+    {
+        tam=0;
+        return;
+    }
+    else
+        tam=tamanho;
+    for (int i=0;i<tam;i++)
+    {
+        dados[i]=0;
+    }
+}
+
+void ivet::seti(int posicao, int valor)
+{
+    dados[posicao]=valor;
+}
+
+//destrutor para desalocar a memoria alocada
+ivet::~ivet(void)
+{
+    delete(dados);
+}
+
+int main()
+
+/*
+    fonteTensao V1;
+    fonteTensao V2(-15,20);
+
+    resistor R1;
+
+    ivet vet1(1);
+    vet1.seti(0,1);
+    cout << vet1.geti() << endl;
+
+    //usando uma classe:
+
+    cout << "Tensão de saída: " << V1.getv() << "V" << endl;
+    V1.setv(10);
+    cout << "Tensão de saída: " << V1.getv() << "V" << endl;
+    //não funciona pq passa do limite definido no setv, não da erro, compila, mas não funciona
+    //V1.setv(50);
+    //correto a se fazer:
+    if (!V1.setv(50))
+        cerr << "Excedeu limite ajustado" << endl;
+
+    cout << "Tensão de saída: " << V1.getv() << "V" << endl;
+    V2.setv(-10);
+    cout << "Tensão de saída: " << V2.getv() << "V" << endl;
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+    //usando interação de classes:
+
+    double aux;
+    cout << "Insira a tensão da fonte: ";
+    cin >> aux;
+    cout << endl;
+    V1.setv(aux);
+
+    cout << "Insira valor de R1: ";
+    cin >> aux;
+    cout << endl;
+    R1.setr(aux);
+
+    cout << "Corrente no resistor = " << R1.i(V1.getv()) << " A" << endl;*/
+
+    fmtTensaoR V1;
+    resistor r1;
+    double aux;
+    double iCorrente;
+
+    cout << "Tensao da fonte: ";
+    cin >> aux;
+    cout << endl;
+    V1.setV(aux);
+
+    cout << "Tensao de R1: ";
+    cin >> aux;
+    cout << endl;
+    r1.setr(aux);
+
+    for (int i=0;i<10;i++)
+    {
+    cout << "tensao da fonte = " << V1.V() << " V" << endl;
+    iCircuito=r1.i(V1.V());
+    cout << "Corrente no resistor = " << r1.i(V1.V()) << " A" << endl;
+    V1.set_i(iCircuito);
+    }
+
+    return 0;
+}
 
