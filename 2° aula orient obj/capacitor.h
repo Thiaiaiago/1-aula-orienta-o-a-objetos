@@ -6,16 +6,18 @@ class capacitor
 {
     public:
         capacitor();
-        virtual ~capacitor();
+        capacitor(double c);
 
-        double Getcapacitancia() { return capacitancia; }
-        void Setcapacitancia(double val) { capacitancia = val; }
-        double Getv_capacitor() { return v_capacitor; }
-        void Setv_capacitor(double val) { v_capacitor = val; }
-        double Geti_capacitor() { return i_capacitor; }
-        void Seti_capacitor(double val) { i_capacitor = val; }
-        double Getdelta_tempo() { return delta_tempo; }
-        void Setdelta_tempo(double val) { delta_tempo = val; }
+        double get_capacitancia();
+        double get_vcap();
+        double get_icap();
+        double get_vcap(double i);
+        double get_icap(double v);
+
+        void setV(double tensao);
+        void setI(double corrente);
+
+
 
     protected:
 
